@@ -8,7 +8,7 @@ const https = require("https")
 // Created our route for URL to Page.html
 app.use(bodyParser.urlencoded({ extended:true }))
 app.get("/", function (req, res){
-    res.sendFile(__direname + "/page.html");
+    res.sendFile( __dirname + "/page.html");
 });
 
 // Here we will implement our API CALL to our URL
@@ -18,6 +18,7 @@ app.post("/", function(res, req){
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=30.2672&lon=97.7431&appid=064b6b9e0084795ff796c8bd93aba1de&units=imperial`
     https.get(url, function (response){
         response.on("data", function(data){
+            console.log(jsondata)
             const jsondata = JSON.parse(data)
             const temp = jsondata.main.temp
             const desc = jsondata.weather[0].description
@@ -30,4 +31,4 @@ app.post("/", function(res, req){
         })
     })
 })
-app.listen(9003)
+app.listen(9001)
